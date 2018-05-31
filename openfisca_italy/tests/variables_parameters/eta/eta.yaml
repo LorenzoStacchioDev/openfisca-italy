@@ -8,5 +8,5 @@
     data_di_nascita: 1970-01-15
   output_variables:
     age:
-      2014-12: 44 
+      2014-12: 44
       2015-01: 45
