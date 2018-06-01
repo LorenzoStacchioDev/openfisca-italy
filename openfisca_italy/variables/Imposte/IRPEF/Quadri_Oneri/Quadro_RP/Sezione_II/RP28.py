@@ -61,8 +61,8 @@ class RP28_contributi_per_lavoratori_prima_occupazione_non_dedotti_dal_sostituto
                 importo_punto_413_certificazione_unica = person('importo_punto_413_certificazione_unica',period)
                 limite_deducibilita = parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.limite_importo_deducibile_contributi_versati_lavoratori_prima_occupazione #limite di deducibilità normale
                 # eventuale maggiorazione del limite di deduciblità
-                eventuale_aumento_limite_deducibilita_maggiorato = (25822.85 - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
-                eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato<2582,eventuale_aumento_limite_deducibilita_maggiorato,2582)
+                eventuale_aumento_limite_deducibilita_maggiorato = (parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_importo_superiore_utilizzato_per_incremento_detrazione - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
+                eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato< parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione,eventuale_aumento_limite_deducibilita_maggiorato, parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione)
                 limite_deducibilita = round((where(person('RP28_hanno_diritto_a_maggior_limite_di_deducibilita',period),(eventuale_aumento_limite_deducibilita_maggiorato + limite_deducibilita) ,limite_deducibilita)),2)
                 operazione_limite_deducibilita = limite_deducibilita - person('RP28_contributi_per_lavoratori_prima_occupazione_dedotti_dal_sostituto',period)
                 operazione_limite_deducibilita = where(operazione_limite_deducibilita>0,operazione_limite_deducibilita,np.array(0))

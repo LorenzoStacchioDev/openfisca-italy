@@ -1,0 +1,5 @@
+description: Importo massimo detrazione nel Rigo RP73
+unit: currency
+values:
+  2010-01-01:
+    value: 1200

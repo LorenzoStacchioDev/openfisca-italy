@@ -5,6 +5,8 @@ from openfisca_core.model_api import *
 from openfisca_italy.entita import *
 # Import numpy
 import numpy as np
+# import common
+from openfisca_italy.variables.Imposte.IRPEF.Quadri_Oneri.Quadro_RP.Sezione_V_common import *
 
 
 class RN12_detrazione_canoni_di_locazione_e_affitto_terreni_annuo (Variable):
@@ -35,7 +37,7 @@ class detrazione_per_inquilini_alloggi_adibiti_ad_abitazione_principale_con_cont
         RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale = person('RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale',period) / 100.00 # Col.3 RP71
         percentuale_giorni = round_((person('RP71_numero_giorni_in_cui_immobile_e_stato_adibito_ad_abitazione_principale',period)/365.00),2) # Col.2 RP71 su 365 giorni
         reddito_per_detrazioni = person('reddito_per_detrazioni',period)
-        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == 2),
+        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == RP71_TipologiaDetrazioneInquiliniAlloggiAdibitiAdAbitazionePrincipale.codice_due),
                                                 reddito_per_detrazioni<=15493.71,
                                                 reddito_per_detrazioni<=30987.41,
                                                 reddito_per_detrazioni>=30987.41],
@@ -56,7 +58,7 @@ class detrazione_per_inquilini_alloggi_adibiti_ad_abitazione_principale_con_cont
         RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale = person('RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale',period) / 100.00 # Col.3 RP71
         percentuale_giorni = round_((person('RP71_numero_giorni_in_cui_immobile_e_stato_adibito_ad_abitazione_principale',period)/365.00),2) # Col.2 RP71 su 365 giorni
         RN1_reddito_complessivo = person('RN1_reddito_complessivo',period)
-        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == 0), # 0 è il corrispondente di codice_tre
+        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == RP71_TipologiaDetrazioneInquiliniAlloggiAdibitiAdAbitazionePrincipale.codice_tre), # 0 è il corrispondente di codice_tre
                                                 RN1_reddito_complessivo<=15493.71,
                                                 RN1_reddito_complessivo>=15493.71],
                                                 [0,991.60,0])
@@ -76,7 +78,7 @@ class detrazione_per_inquilini_alloggi_adibiti_ad_abitazione_principale(Variable
         RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale = person('RP71_percentuale_di_spettanza_relativa_a_inquilini_alloggi_adibiti_abitazione_principale',period) / 100.00 # Col.3 RP71
         percentuale_giorni = round_((person('RP71_numero_giorni_in_cui_immobile_e_stato_adibito_ad_abitazione_principale',period)/365.00),2) # Col.2 RP71 su 365 giorni
         reddito_per_detrazioni = person('reddito_per_detrazioni',period)
-        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == 1),
+        detrazione_senza_percentuali = select([not_(RP71_tipologia_di_detrazione_inquilini_alloggi_adibiti_abitazione_principale == RP71_TipologiaDetrazioneInquiliniAlloggiAdibitiAdAbitazionePrincipale.codice_uno),
                                                 reddito_per_detrazioni<=15493.71,
                                                 reddito_per_detrazioni<=30987.41,
                                                 reddito_per_detrazioni>=30987.41], # in all the other case

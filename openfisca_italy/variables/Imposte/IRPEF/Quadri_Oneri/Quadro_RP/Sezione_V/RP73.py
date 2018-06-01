@@ -24,8 +24,8 @@ class detrazioni_per_affitto_terreni_agricoli_ai_giovani(Variable):
 
     def formula(person, period, parameters):
         vero_valore_RP73 = where(person('RP73_spese_per_detrazione_affitto_terreni_agricoli_ai_giovani',period)< parameters(period).imposte.IRPEF.QuadroRP.Sezione_V.limite_massimo_canone_annuo_RP73, person('RP73_spese_per_detrazione_affitto_terreni_agricoli_ai_giovani',period),parameters(period).imposte.IRPEF.QuadroRP.Sezione_V.limite_massimo_canone_annuo_RP73)
-        detrazione_spettante_teorica = 0.19 * vero_valore_RP73
-        detrazione_spettante_teorica = where(detrazione_spettante_teorica>1200, 1200,detrazione_spettante_teorica)
+        detrazione_spettante_teorica = parameters(period).imposte.IRPEF.QuadroRP.Sezione_V.RP73_percentuale_detrazione * vero_valore_RP73
+        detrazione_spettante_teorica = where(detrazione_spettante_teorica> parameters(period).imposte.IRPEF.QuadroRP.Sezione_V.RP73_limite_massimo_detrazione, parameters(period).imposte.IRPEF.QuadroRP.Sezione_V.RP73_limite_massimo_detrazione ,detrazione_spettante_teorica)
         detrazione_senza_percentuali = select([not_(person('RP73_spese_per_detrazione_affitto_terreni_agricoli_ai_giovani_compilato',period)),
                                                 True], # in all the other case
                                                 [0,detrazione_spettante_teorica])

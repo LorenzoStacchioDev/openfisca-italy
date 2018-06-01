@@ -38,13 +38,13 @@ class RP27_30_31_limite_importo_deducibile(Variable):
         # calcolo capienza_RP28
         limite_deducibilita = parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.limite_importo_deducibile_contributi_versati_lavoratori_prima_occupazione #limite di deducibilità normale
         # eventuale maggiorazione del limite di deduciblità
-        eventuale_aumento_limite_deducibilita_maggiorato = (25822.85 - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
-        eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato<2582,eventuale_aumento_limite_deducibilita_maggiorato,2582)
+        eventuale_aumento_limite_deducibilita_maggiorato = ( parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_importo_superiore_utilizzato_per_incremento_detrazione - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
+        eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato< parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione ,eventuale_aumento_limite_deducibilita_maggiorato, parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione )
         limite_deducibilita = round((where(person('RP28_hanno_diritto_a_maggior_limite_di_deducibilita',period),(eventuale_aumento_limite_deducibilita_maggiorato + limite_deducibilita) ,limite_deducibilita)),2)
         capienza_RP28 = limite_deducibilita - person('RP27_contributi_deducibilita_ordinaria_dedotti_dal_sostituto',period) - person('RP28_contributi_per_lavoratori_prima_occupazione_dedotti_dal_sostituto',period) - person('RP29_contributi_per_fondi_in_squilibrio_finanziario_dedotti_dal_sostituto',period) - person('RP30_contributi_versati_per_familiari_a_carico_dedotti_dal_sostituto',period) - person('RP31_contributi_fondo_pensione_negoziale_dipendenti_pubblici_dedotti_dal_sostituto',period)
         capienza_RP28 = where(capienza_RP28<0, 0, capienza_RP28)
         #calcolo limite di deduciblità per Rp 27-30-31
-        limite_di_deduciblita_RP27_30_31 = capienza_RP28 - 2582 - person('RP28_contributi_per_lavoratori_prima_occupazione_non_dedotti_dal_sostituto',period)
+        limite_di_deduciblita_RP27_30_31 = capienza_RP28 - parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione - person('RP28_contributi_per_lavoratori_prima_occupazione_non_dedotti_dal_sostituto',period)
         limite_di_deduciblita_RP27_30_31 = round_((where(limite_di_deduciblita_RP27_30_31<0,0,limite_di_deduciblita_RP27_30_31)),2)
         #deduzione richiesta
         deduzione_richiesta = round_((person('RP27_contributi_deducibilita_ordinaria_non_dedotti_dal_sostituto',period) + person('RP30_contributi_versati_per_familiari_a_carico_non_dedotti_dal_sostituto',period) + person('RP31_contributi_fondo_pensione_negoziale_dipendenti_pubblici_non_dedotti_dal_sostituto',period)),2)
@@ -61,8 +61,8 @@ class RP_28_limite_importo_deducibile_contributi_per_lavoratori_prima_occupazion
         def formula(person,period,parameters):
             limite_deducibilita = parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.limite_importo_deducibile_contributi_versati_lavoratori_prima_occupazione #limite di deducibilità normale
             # eventuale maggiorazione del limite di deduciblità
-            eventuale_aumento_limite_deducibilita_maggiorato = (25822.85 - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
-            eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato<2582,eventuale_aumento_limite_deducibilita_maggiorato,2582)
+            eventuale_aumento_limite_deducibilita_maggiorato = ( parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_importo_superiore_utilizzato_per_incremento_detrazione - person('RP28_contributi_versati_nei_primi_5_anni_per_maggior_limite_deducibilita',period))
+            eventuale_aumento_limite_deducibilita_maggiorato = where(eventuale_aumento_limite_deducibilita_maggiorato< parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione ,eventuale_aumento_limite_deducibilita_maggiorato, parameters(period).imposte.IRPEF.QuadroRP.Sezione_II.RP28_massimo_incremento_della_detrazione )
             limite_deducibilita = round((where(person('RP28_hanno_diritto_a_maggior_limite_di_deducibilita',period),(eventuale_aumento_limite_deducibilita_maggiorato + limite_deducibilita) ,limite_deducibilita)),2)
             capienza_RP28 = limite_deducibilita - person('RP27_contributi_deducibilita_ordinaria_dedotti_dal_sostituto',period) - person('RP28_contributi_per_lavoratori_prima_occupazione_dedotti_dal_sostituto',period) - person('RP29_contributi_per_fondi_in_squilibrio_finanziario_dedotti_dal_sostituto',period) - person('RP30_contributi_versati_per_familiari_a_carico_dedotti_dal_sostituto',period) - person('RP31_contributi_fondo_pensione_negoziale_dipendenti_pubblici_dedotti_dal_sostituto',period)
             capienza_RP28 = where(capienza_RP28<0, 0, capienza_RP28)

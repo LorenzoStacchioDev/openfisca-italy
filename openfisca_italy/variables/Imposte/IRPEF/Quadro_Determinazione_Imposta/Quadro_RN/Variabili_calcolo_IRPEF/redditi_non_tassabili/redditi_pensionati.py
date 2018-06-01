@@ -36,13 +36,16 @@ class irpef_non_dovuta_pensionati_e_terreni (Variable):
         tutti_altri_redditi_sono_zero = person('solo_redditi_da_pensione_e_terreni',period)
         return where((reddito_da_pensione_sotto_la_soglia and reddito_da_terreni_sotto_la_soglia and tutti_altri_redditi_sono_zero and not_(RN1_credito_per_fondi_comuni_compilato)),True,False)
 
-# TODO: aggiornare il parametro del credito per fondi comuni compilato quando verrà definito il rigo RN1
+
 class RN1_credito_per_fondi_comuni_compilato (Variable):
     value_type = bool
     entity = Persona
     definition_period = YEAR
     label = "Condizione vera se persona ha compilato rigo RN1 col. 2 nella dichiarazione dei redditi"
     reference = "http://www.agenziaentrate.gov.it/wps/file/Nsilib/Nsi/Schede/Dichiarazioni/Redditi+Persone+fisiche+2018/Modello+e+istruzioni+Redditi+PF2018/Istruzioni+Redditi+Pf+-+Fascicolo+1+2018/PF1_istruzioni_2018_Ret.pdf"
+
+    def formula(person,period,parameter):
+        return not_(person('RN1_credito_per_fondi_comuni',period)==0)
 
 
 class solo_redditi_da_pensione_e_terreni(Variable):

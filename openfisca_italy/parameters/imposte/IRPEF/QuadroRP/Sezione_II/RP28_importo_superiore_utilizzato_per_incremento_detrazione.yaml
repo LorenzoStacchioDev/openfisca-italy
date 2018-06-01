@@ -1,0 +1,5 @@
+description: Importo massimo utilizzato nel rigo RP28 per stabilire di quanto deve essere aumentato il limite di detrazione
+unit: currency
+values:
+  2010-01-01:
+    value: 25822.85

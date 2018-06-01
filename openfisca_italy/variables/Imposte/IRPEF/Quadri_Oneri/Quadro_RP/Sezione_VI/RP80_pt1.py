@@ -90,7 +90,7 @@ class RP80_ammontare_detrazioni_investimenti_startup(Variable):
 
         def formula(person,period,parameters):
             diritto_a_compilare_colonna_codice_e_ammontare_detrazione = person('RP80_diritto_a_compilare_colonna_codice_e_ammontare_detrazione_investimenti_startup',period)
-            ammontare_detrazioni = round_((person('RP80_ammontare_investimento_startup',period) * 0.30),2)
+            ammontare_detrazioni = round_((person('RP80_ammontare_investimento_startup',period) * parameters(period).imposte.IRPEF.QuadroRP.Sezione_VI.RP80_percentuale_detrazione_investimento_agevolabile),2)
             return where(diritto_a_compilare_colonna_codice_e_ammontare_detrazione,ammontare_detrazioni,round_(person('RP80_ammontare_importo_detraibile_ricevuto_per_trasparenza_investimenti_startup',period),2))
 
 
