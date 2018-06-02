@@ -23,7 +23,7 @@ simple_scenario = init_profile(simple_scenario) # inizializzo lo scenario con la
 print "Simulazione dello scenario di tasse e benefici normale"
 simulation = simple_scenario.new_simulation() # nuova simulazione per lo scenario normale
 # Print values
-print('Detrazioni per coniuge a carico con sistema senza riforma:')
+print('Irpef Lorda con sistema senza riforma:')
 print(simulation.calculate('RN5_irpef_lorda','2017'))
 # scenario con riforma
 print "\nCreazione ed inizializzazine dello scenario di tasse e benefici con riforma"
@@ -33,5 +33,5 @@ reform_scenario = init_profile(reform_scenario) # inizializzo lo scenario con la
 print "Simulazione dello scenario di tasse e benefici con riforma"
 reform_simulation = reform_scenario.new_simulation() # nuova simulazione per lo scenario normale
 # Print values
-print('Detrazioni per coniuge a carico con sistema con riforma:')
+print('Irpef Lorda Irpef Lorda con riforma:')
 print(reform_simulation.calculate('RN5_irpef_lorda','2017'))
