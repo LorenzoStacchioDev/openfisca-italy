@@ -77,15 +77,18 @@ class RP61_limite_spesa_in_base_a_codice_da_1_a_4(Variable):
     definition_period = YEAR
     label= "Limite di spesa inseribile nel rigo RP61"
     reference = "http://www.agenziaentrate.gov.it/wps/file/Nsilib/Nsi/Schede/Dichiarazioni/Redditi+Persone+fisiche+2018/Modello+e+istruzioni+Redditi+PF2018/Istruzioni+Redditi+Pf+-+Fascicolo+1+2018/PF1_istruzioni_2018_Ret.pdf#page=78"  # Always use the most official source
+
     def formula(person,period,parameters):
         codice_tipo_intervento = person('RP61_tipo_intervento',period)
         range_date_spesa = person('RP61_Range_Spesa_Date',period)
         # dove i codici sono diversi da 5 e 6
+        print 'codice intervento RP61', codice_tipo_intervento
         P = parameters(period).imposte.IRPEF.QuadroRP.Sezione_IV.limite_spesa_codici_diversi_da_5_6_RP61_64[codice_tipo_intervento]
         return select([range_date_spesa == RangeSpesaDate.nessun_codice,
         range_date_spesa == RangeSpesaDate.codice_uno,
         range_date_spesa == RangeSpesaDate.codice_due],
-        [0, P.importo_spese_sostenute_fino_5_giugno_2013, P.importo_spese_sostenute_dal_6_giugno_2013_al_21_dicembre_2017,])
+        [0,
+         P.importo_spese_sostenute_fino_5_giugno_2013, P.importo_spese_sostenute_dal_6_giugno_2013_al_21_dicembre_2017])
 
 
 class RP61_limite_spesa_in_base_a_codice_5_6(Variable):
