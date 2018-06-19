@@ -2,11 +2,10 @@
 
 import os
 from openfisca_core.taxbenefitsystems import TaxBenefitSystem
-from . import entita
-from . import scenarios
+import entita
+import scenarios
 
 COUNTRY_DIR = os.path.dirname(os.path.abspath(__file__))
-
 
 # Our country tax and benefit class inherits from the general TaxBenefitSystem class.
 # The name ItalyTaxBenefitSystem must not be changed, as all tools of the OpenFisca ecosystem expect a ItalyTaxBenefitSystem class to be exposed in the __init__ module of a country package.

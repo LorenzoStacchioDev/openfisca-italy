@@ -24,7 +24,6 @@ class RP48_importo_rata_su_spese_per_interventi_recupero_patrimonio_edilizione_m
 
         for anno_rigo, codice_rigo, importo_rata in zip(Righi_RP41_47_anni,Righi_RP41_47_codici_2012_2013_2017_antisismico,Righi_RP41_47_importi_rate):
             condizione_per_il_36 = ((person(anno_rigo,period) <= 2012) * (person(anno_rigo,period) >= 2008) * (person(codice_rigo,period) == TipiSpesaSostenutaPerRecuperoPatrimonioEdilizioInterventiAntisismici.nessun_codice)) + ((person(codice_rigo,period) == TipiSpesaSostenutaPerRecuperoPatrimonioEdilizioInterventiAntisismici.codice_due) * (person(anno_rigo,period) == 2012))
-            print person(codice_rigo,period)
             importo_totale = where (condizione_per_il_36,(importo_totale + person(importo_rata,period)),importo_totale)
         return importo_totale
 

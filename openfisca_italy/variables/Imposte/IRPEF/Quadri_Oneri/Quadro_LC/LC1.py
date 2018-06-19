@@ -178,11 +178,4 @@ class LC1_imposta_a_credito(Variable):
         importo_colonna_11 = person('LC1_cedolare_Secca_rimbosata_dal_sostituto_o_REDDITI_2018',period)
         importo_colonna_12 = person('LC1_credito_compensato_modello_F24',period)
         importo = importo_colonna_5 - importo_colonna_6 + importo_colonna_7 - importo_colonna_8 - importo_colonna_10 + importo_colonna_11 + importo_colonna_12
-        print 'LC1_differenza',importo_colonna_5
-        print 'LC1_eccedenza_dichiarata_precedentemente',importo_colonna_6
-        print 'LC1_eccedenza_compensata_modello_F24',importo_colonna_7
-        print 'LC1_acconti_versati',importo_colonna_8
-        print 'LC1_cedolare_secca_trattenuta_dal_sostituto',importo_colonna_10
-        print 'LC1_cedolare_Secca_rimbosata_dal_sostituto_o_REDDITI_2018',importo_colonna_11
-        print 'LC1_credito_compensato_modello_F24',importo_colonna_12
         return where(importo<0,abs(importo), np.array(0))

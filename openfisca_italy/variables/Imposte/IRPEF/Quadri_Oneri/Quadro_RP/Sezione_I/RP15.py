@@ -25,7 +25,6 @@ class RP15_si_possono_rateizzare_importo_spese_relative_a_righi_RP1_RP2_RP3(Vari
 
     def formula(person,period,parameters):
         spese_RP1_RP2_RP3 = person('RP1_totale_spese_sanitarie',period) + person('RP2_spese_sanitarie_per_familiari_non_a_carico_affetti_da_patologie_esistenti',period) + person('RP3_spese_sanitarie_per_persone_con_disabilita',period)
-        print 'uscito fuori', person('RP2_spese_sanitarie_per_familiari_non_a_carico_affetti_da_patologie_esistenti',period)
         return where (spese_RP1_RP2_RP3> parameters(period).imposte.IRPEF.QuadroRP.sezione_I_Oneri_spese.importo_minimo_per_rateatizzazione_RP1_RP2_RP2, np.array(True), np.array(False))
 
 

@@ -21,5 +21,4 @@ class RN17_totale_detrazione_oneri_Sez_VI_quadro_RP(Variable):
                                                     where(person('RP83_altre_detrazioni',period) < (0.30 * person('RN5_irpef_lorda',period)) ,
                                                     person('RP83_altre_detrazioni',period), (0.30 * person('RN5_irpef_lorda',period)))
                                             ,person('RP83_altre_detrazioni',period))
-        print round_((person('RP82_detrazioni_per_mantenimento_cane_guida',period) + vero_valore_RP83_altre_detrazioni),2)
         return round_((person('RP82_detrazioni_per_mantenimento_cane_guida',period) + vero_valore_RP83_altre_detrazioni),2)
